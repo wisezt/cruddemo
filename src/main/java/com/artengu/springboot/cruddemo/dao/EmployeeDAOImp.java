@@ -31,7 +31,7 @@ public class EmployeeDAOImp implements EmployeeDAO{
         Session currentSession = entityManager.unwrap(Session.class);
 
         Query<EmployeeEntity> theQuery =
-                currentSession.createQuery("from Employee", EmployeeEntity.class);
+                currentSession.createQuery("from EmployeeEntity", EmployeeEntity.class);
 
         List<EmployeeEntity> employeeEntities = theQuery.getResultList();
 

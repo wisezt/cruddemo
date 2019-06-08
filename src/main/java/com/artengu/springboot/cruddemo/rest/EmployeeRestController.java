@@ -19,13 +19,21 @@ public class EmployeeRestController {
     @Autowired
     public EmployeeRestController(EmployeeDAO theEmployeeDAO){
         employeeDAO = theEmployeeDAO;
+        System.out.println(employeeDAO.findAll());
     }
 
 
-    @GetMapping("/employees'")
+    @GetMapping("/employees")
     public List<EmployeeEntity> findAll(){
+        System.out.println("**************" + employeeDAO.findAll());
         return employeeDAO.findAll();
     }
+//
+//    @GetMapping("/employees")
+//    public List<EmployeeEntity> findAll() {
+//        return employeeDAO.findAll();
+//    }
+
 
 
 
