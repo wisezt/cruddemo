@@ -1,4 +1,4 @@
-package com.artengu.springboot.cruddemo.Entity;
+package com.artengu.springboot.cruddemo.entity;
 
 import javax.persistence.*;
 
