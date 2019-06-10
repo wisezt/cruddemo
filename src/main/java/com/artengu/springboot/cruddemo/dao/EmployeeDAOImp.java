@@ -25,7 +25,7 @@ public class EmployeeDAOImp implements EmployeeDAO{
 
 
     @Override
-    @Transactional
+    //@Transactional
     public List<EmployeeEntity> findAll() {
 
         Session currentSession = entityManager.unwrap(Session.class);
@@ -37,5 +37,23 @@ public class EmployeeDAOImp implements EmployeeDAO{
 
 
         return employeeEntities;
+    }
+
+    @Override
+    public EmployeeEntity findById(int theId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        EmployeeEntity theEmployee = currentSession.get(EmployeeEntity.class theId);
+        return theEmployee;
+    }
+
+    @Override
+    public void save(EmployeeEntity theEmployeeEntity) {
+
+    }
+
+    @Override
+    public void deleteById(int theId) {
+
     }
 }
