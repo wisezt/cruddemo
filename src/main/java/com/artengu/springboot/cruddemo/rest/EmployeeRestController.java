@@ -4,10 +4,7 @@ import com.artengu.springboot.cruddemo.dao.EmployeeDAO;
 import com.artengu.springboot.cruddemo.entity.EmployeeEntity;
 import com.artengu.springboot.cruddemo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -46,6 +43,16 @@ public class EmployeeRestController {
         }
 
         return theEmployeeEntity;
+    }
+
+    @PostMapping("/employees")
+    public EmployeeEntity addEmployee(@RequestBody EmployeeEntity theEmployee){
+
+            theEmployee.setId(0);
+
+            employeeService.save(theEmployee);
+
+             return theEmployee;
     }
 
 
