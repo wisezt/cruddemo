@@ -43,7 +43,7 @@ public class EmployeeDAOImp implements EmployeeDAO{
     public EmployeeEntity findById(int theId) {
         Session currentSession = entityManager.unwrap(Session.class);
 
-        EmployeeEntity theEmployee = currentSession.get(EmployeeEntity.class theId);
+        EmployeeEntity theEmployee = currentSession.get(EmployeeEntity.class, theId);
         return theEmployee;
     }
 
