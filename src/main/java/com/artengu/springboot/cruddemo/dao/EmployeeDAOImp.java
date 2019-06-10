@@ -49,11 +49,26 @@ public class EmployeeDAOImp implements EmployeeDAO{
 
     @Override
     public void save(EmployeeEntity theEmployeeEntity) {
+        Session currentSession = entityManager.unwrap(Session.class);
 
+        currentSession.saveOrUpdate(theEmployeeEntity);
     }
+
 
     @Override
     public void deleteById(int theId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+
+
+
+        Query<EmployeeEntity> theQuery =
+                currentSession.createQuery("delete from EmployeeEntity where id=:employeeId");
+
+
+        theQuery.setParameter("employeeId", theId);
+
+        theQuery.executeUpdate();
+
 
     }
 }
