@@ -37,7 +37,7 @@ public class EmployeeDAOJpaImp implements EmployeeDAO{
                 entityManager.createQuery("from EmployeeEntity", EmployeeEntity.class);
 
         List<EmployeeEntity> employeeEntities = theQuery.getResultList();
-
+        System.out.println("******* find All" );
 
         return employeeEntities;
     }
@@ -47,6 +47,9 @@ public class EmployeeDAOJpaImp implements EmployeeDAO{
 
 
         EmployeeEntity theEmployee = entityManager.find(EmployeeEntity.class, theId);
+
+        System.out.println("******* findById" );
+
         return theEmployee;
     }
 
@@ -74,6 +77,8 @@ public class EmployeeDAOJpaImp implements EmployeeDAO{
         theQuery.setParameter("employeeId", theId);
 
         theQuery.executeUpdate();
+
+        System.out.println("******* delete" );
 
 
     }
