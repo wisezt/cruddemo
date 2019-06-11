@@ -2,14 +2,18 @@ package com.artengu.springboot.cruddemo.dao;
 
 
 import com.artengu.springboot.cruddemo.entity.EmployeeEntity;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
+@Primary
 @Repository
 public class EmployeeDAOJpaImp implements EmployeeDAO{
 
@@ -27,10 +31,10 @@ public class EmployeeDAOJpaImp implements EmployeeDAO{
     //@Transactional
     public List<EmployeeEntity> findAll() {
 
-        Session currentSession = entityManager.unwrap(Session.class);
 
-        Query<EmployeeEntity> theQuery =
-                currentSession.createQuery("from EmployeeEntity", EmployeeEntity.class);
+
+        TypedQuery<EmployeeEntity> theQuery =
+                entityManager.createQuery("from EmployeeEntity", EmployeeEntity.class);
 
         List<EmployeeEntity> employeeEntities = theQuery.getResultList();
 
@@ -40,28 +44,31 @@ public class EmployeeDAOJpaImp implements EmployeeDAO{
 
     @Override
     public EmployeeEntity findById(int theId) {
-        Session currentSession = entityManager.unwrap(Session.class);
 
-        EmployeeEntity theEmployee = currentSession.get(EmployeeEntity.class, theId);
+
+        EmployeeEntity theEmployee = entityManager.find(EmployeeEntity.class, theId);
         return theEmployee;
     }
 
     @Override
     public void save(EmployeeEntity theEmployeeEntity) {
-        Session currentSession = entityManager.unwrap(Session.class);
 
-        currentSession.saveOrUpdate(theEmployeeEntity);
+        EmployeeEntity dbEmployee = entityManager.merge(theEmployeeEntity);
+
+        theEmployeeEntity.setId(dbEmployee.getId());
+
+        System.out.println("******* the Employee id:" + theEmployeeEntity.getId());
+
     }
 
 
     @Override
     public void deleteById(int theId) {
-        Session currentSession = entityManager.unwrap(Session.class);
 
 
 
-        Query<EmployeeEntity> theQuery =
-                currentSession.createQuery("delete from EmployeeEntity where id=:employeeId");
+
+        Query theQuery = entityManager.createQuery("delete from EmployeeEntity where id=: employeeId");
 
 
         theQuery.setParameter("employeeId", theId);
